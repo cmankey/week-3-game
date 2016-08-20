@@ -1,4 +1,4 @@
-var animals = [{name: "zebra", photo: "assets/images/zebra.jpg"}, {name: "lion", photo: "assets/images/lion.jpg"}, {name: "tiger", photo: "assets/images/tiger.jpg"}, {name: "giraffe", photo: "assets/images/giraffe.jpg"}, {name: "jaguar", photo: "assets/images/jaguar.jpg"}, {name: "leopard", photo: "assets/images/leopard.jpg"}, {name: "gorilla", photo: "assets/images/gorilla.jpg"},{name: "elephant", photo: "assets/images/elephant.jpg"}, {name: "kangaroo", photo: "assets/images/kangaroo.jpg"}, {name: "whale", photo: "assets/images/beluga.jpg"}, {name: "cheetah", photo: "assets/images/cheetah.jpg"}, {name: "penguin", photo: "assets/images/penguins.jpg"}, {name: "dolphin", photo: "assets/images/dolphin.jpg"}, {name: "seal", photo: "assets/images/harbor-seal.jpg"}, {name: "walrus", photo: "assets/images/walrus.jpg"}];  
+var animals = [{name: "zebra", photo: "assets/images/zebra.jpg", sound: "assets/sounds/zebra.wav"}, {name: "lion", photo: "assets/images/lion.jpg", sound: "assets/sounds/lion.wav"}, {name: "tiger", photo: "assets/images/tiger.jpg", sound: "assets/sounds/tiger.wav"}, {name: "jaguar", photo: "assets/images/jaguar.jpg", sound: "assets/sounds/jaguar.wav"}, {name: "leopard", photo: "assets/images/leopard.jpg", sound: "assets/sounds/leopard.wav"}, {name: "gorilla", photo: "assets/images/gorilla.jpg", sound: "assets/sounds/gorilla.wav"},{name: "elephant", photo: "assets/images/elephant.jpg", sound: "assets/sounds/elephant.wav"}, {name: "whale", photo: "assets/images/beluga.jpg", sound: "assets/sounds/whale.wav"}, {name: "cheetah", photo: "assets/images/cheetah.jpg", sound: "assets/sounds/cheetah.wav"}, {name: "penguin", photo: "assets/images/penguins.jpg", sound: "assets/sounds/penguin.wav"}, {name: "dolphin", photo: "assets/images/dolphin.jpg", sound: "assets/sounds/dolphin.wav"}, {name: "seal", photo: "assets/images/harbor-seal.jpg", sound: "assets/sounds/seal.wav"}];  
 var wins = 0;
 var losses = 0;
 var animal;
@@ -21,6 +21,15 @@ function beginNewGame() {
 	incorrectGuesses = [];
 	remainingIncorrectGuesses = 6;
 	updateDisplay();
+}
+
+function isLetter(key) {
+	var charCode = key.charCodeAt(0);
+	if (charCode > 96 && charCode < 123) {
+		return true;
+	} else {
+		return false;
+	}
 }
 
 function arrayContains(arrayToSearch, elementToFind) {
@@ -46,7 +55,7 @@ function updateDisplay() {
 document.onkeyup = function(event) {
 	var userGuess = String.fromCharCode(event.keyCode).toLowerCase();
 	// if userGuess already guessed, do nothing - accept next guess
-	if (arrayContains(previousGuesses, userGuess)) {
+	if (arrayContains(previousGuesses, userGuess) || !isLetter(userGuess)) {
 		return;
 	// else if user guess correct, update display and check to see if user has won game
 	} else {
@@ -65,6 +74,10 @@ document.onkeyup = function(event) {
 				updateDisplay();
 				var animalPhoto = document.getElementById("photo");
 				animalPhoto.src = animal.photo;
+				var animalSound = document.getElementById("sound");
+				animalSound.src = animal.sound;
+				document.getElementById("test").load();
+				document.getElementById("test").play();
 				beginNewGame();
 			}
 			// else (user guess is incorrect), add to incorrect guesses array, decrement remaining guesses
