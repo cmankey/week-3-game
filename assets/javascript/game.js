@@ -19,7 +19,7 @@ function beginNewGame() {
 	
 	previousGuesses = [];
 	incorrectGuesses = [];
-	remainingIncorrectGuesses = 6;
+	remainingIncorrectGuesses = 10;
 	updateDisplay();
 }
 
@@ -74,10 +74,10 @@ document.onkeyup = function(event) {
 				updateDisplay();
 				var animalPhoto = document.getElementById("photo");
 				animalPhoto.src = animal.photo;
-				var animalSound = document.getElementById("sound");
+				var animalSound = document.getElementById("sound-source");
 				animalSound.src = animal.sound;
-				document.getElementById("test").load();
-				document.getElementById("test").play();
+				document.getElementById("sound").load();
+				document.getElementById("sound").play();
 				beginNewGame();
 			}
 			// else (user guess is incorrect), add to incorrect guesses array, decrement remaining guesses
